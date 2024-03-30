@@ -31,3 +31,30 @@ body {
     text-wrap: balance;
   }
 }
+
+.typing-animation {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 0.6em;
+  animation: typing 1s steps(5, end), blink-caret 0.5s step-end infinite alternate;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
