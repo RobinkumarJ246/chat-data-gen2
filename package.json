@@ -6,7 +6,7 @@
     "dev": "concurrently \"next dev\" \"node src/server/index.js\"",
     "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
     "build:client": "next build",
-    "build:server": "concurrently \"node src/server/index.js\" \"npm start\"",
+    "build:server": "node src/server/index.js",
     "start": "next start",
     "lint": "next lint"
   },
