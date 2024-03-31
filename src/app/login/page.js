@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
@@ -8,33 +8,38 @@ import Link from 'next/link';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is logged in from local storage
+    const loggedInStatus = localStorage.getItem('isLoggedIn');
+    if (loggedInStatus === 'true') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Make a request to your server to authenticate the user
-      const response = await axios.post('https://chat-data-gen-server.onrender.com/api/login', { email, password });
+      const response = await axios.post('https://chat-data-gen-v2.vercel.app/api/auth/login', { email, password });
 
       if (response.status === 200) {
-        // Authentication successful
         console.log(response.data.message);
         console.log('Logged in');
-
-        // Navigate to the desired page after successful login
+        setIsLoggedIn(true);
+        localStorage.setItem('isLoggedIn', 'true'); // Update local storage
         router.push('/');
-
       } else {
-        // Authentication failed
         alert(response.data.error || 'Login failed. Please try again later.');
       }
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        // Registration failed due to existing email
         alert('Invalid email or password');
       } else {
-        // Handle authentication error
         console.error('Login error:', err);
         alert('Login failed. Please try again later.');
       }

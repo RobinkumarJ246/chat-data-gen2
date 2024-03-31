@@ -1,27 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const router = useRouter();
   const [showSideMenu, setShowSideMenu] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Temporary state for isLoggedIn
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in from local storage
+    const loggedInStatus = localStorage.getItem('isLoggedIn');
+    if (loggedInStatus === 'true') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const handleLogout = () => {
-    setIsLoggedIn(false); // Set isLoggedIn to false on logout
+    setIsLoggedIn(false);
+    localStorage.setItem('isLoggedIn', 'false'); // Update local storage
     console.log('Logged out');
-    console.log(isLoggedIn);
     router.push('/');
-  };
-
-  const NavigateToRooms = () => {
-    router.push('/rooms');
-  };
-
-  const NavigateToLogin = () => {
-    router.push('/login');
   };
 
   const toggleSideMenu = () => {
