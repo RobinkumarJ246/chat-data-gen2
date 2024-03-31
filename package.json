@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev\" \"node src/server/index.js\"",
     "build": "next build",
-    "start": "concurrently \"next start\" \"node src/server/index.js\"",
+    "start": "concurrently \"node src/server/index.js\" \"next start\"",
     "lint": "next lint"
   },
   
