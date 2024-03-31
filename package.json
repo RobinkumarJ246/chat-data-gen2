@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"node src/server/index.js\"",
-    "build": "concurrently \"npm run build:server\" \"npm run build:client\"",
+    "build": "concurrently \"npm run build:server\" \"npm run build\"",
     "build:client": "next build",
     "build:server": "node src/server/index.js",
     "start": "concurrently \"next start\" \"node src/server/index.js\""
