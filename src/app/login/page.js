@@ -25,7 +25,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://chat-data-gen-v2.vercel.app/api/auth/login', { email, password });
+      const response = await axios.post('http://localhost:4000/api/login', { email, password });
 
       if (response.status === 200) {
         console.log(response.data.message);
